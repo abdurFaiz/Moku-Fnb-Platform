@@ -1,0 +1,29 @@
+.badge-warning-soft {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #f59e0b;
+}
+
+.badge-success-soft {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+.badge-danger-soft {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.badge-primary-soft {
+    background-color: rgba(27, 85, 246, 0.1);
+    color: var(--bs-blue);
+}
+
+.badge-info-soft {
+    background-color: rgba(13, 202, 240, 0.1);
+    color: #0dcaf0;
+}
+
+.badge-dark-soft {
+    background-color: rgba(30, 41, 59, 0.1);
+    color: #1e293b;
+}

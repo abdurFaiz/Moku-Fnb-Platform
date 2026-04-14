@@ -1,0 +1,20 @@
+.topnav {
+    z-index: 0 !important;
+}
+
+body[data-sidebar-size="sm"] .vertical-menu #sidebar-menu > ul > li > a.active {
+    background-color: transparent;
+}
+
+#page-topbar {
+    background-color: #fff !important;
+    /* border-bottom: 0 !important; */
+}
+
+.btn-profile-pic {
+    /* background-color: var(--bs-white) !important; */
+}
+
+.btn-profile-pic:hover {
+    background-color: #dadada !important;
+}

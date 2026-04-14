@@ -1,0 +1,11 @@
+.text-sm {
+    font-size: small !important;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.fw-semibold {
+    font-weight: 500;
+}

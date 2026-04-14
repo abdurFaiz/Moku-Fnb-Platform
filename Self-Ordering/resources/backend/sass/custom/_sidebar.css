@@ -1,0 +1,95 @@
+#sidebar-menu ul li a {
+    padding: 0.62rem 1rem;
+    margin: 0 1rem;
+    border-radius: 0.5rem;
+    /* border-radius: var(--bs-border-radius-pill) !important; */
+    transition: all 0.2s;
+}
+
+/* #sidebar-menu ul li ul.sub-menu li a{
+    padding: 0.8rem 1.5rem 0.8rem 3.3rem !important;
+} */
+
+#sidebar-menu .mm-active > a i {
+    color: var(--bs-primary) !important;
+}
+
+#sidebar-menu ul li a:hover {
+    background-color: var(--bs-gray-200);
+    color: var(--bs-primary-text-emphasis) !important;
+}
+
+#sidebar-menu ul li a:hover i {
+    color: var(--bs-primary-text-emphasis) !important;
+}
+
+body[data-sidebar-size="sm"] .vertical-menu #sidebar-menu > ul > li > a {
+    padding: 15px 20px !important;
+    margin: 0;
+}
+
+body[data-sidebar-size="sm"]
+    .vertical-menu
+    #sidebar-menu
+    > ul
+    > .mm-active
+    > .active
+    i {
+    color: var(--bs-primary) !important;
+}
+
+/* sidebar menu */
+#sidebar ul.metismenu li {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Make sidebar scrollable */
+.vertical-menu {
+    /* height: 100vh; */
+    /* overflow: hidden; */
+}
+
+.vertical-menu .simplebar-content-wrapper {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* For Firefox */
+}
+
+/* Custom scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+.vertical-menu .simplebar-content-wrapper::-webkit-scrollbar {
+    width: 6px;
+}
+
+.vertical-menu .simplebar-content-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.vertical-menu .simplebar-content-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.vertical-menu .simplebar-content-wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.vertical-menu [data-simplebar] {
+    max-height: 100vh;
+}
+
+/* Show scrollbar always when there's overflow */
+.vertical-menu .simplebar-scrollbar::before {
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 1 !important;
+}
+
+.vertical-menu .simplebar-scrollbar.simplebar-visible::before {
+    opacity: 1 !important;
+}
+
+/* custom sidebar-menu */
+#sidebar-menu ul li ul.sub-menu li {
+    overflow: hidden;
+}

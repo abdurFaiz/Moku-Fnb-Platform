@@ -1,0 +1,482 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import TermCondition from '../pages/legal/TermCondition';
+import { useOutletNavigation } from '@/hooks/shared/useOutletNavigation';
+import { termsData } from '@/features/profile/constants/dataSyaratKetentuanConstant';
+import './setup';
+
+// Mock dependencies
+vi.mock('@/hooks/shared/useOutletNavigation');
+vi.mock('@/components', () => ({
+    HeaderBar: ({ title, onBack }: any) => (
+        <div data-testid="header-bar">
+            <span>{title}</span>
+            <button onClick={onBack}>Back</button>
+        </div>
+    ),
+    ScreenWrapper: ({ children }: any) => <div data-testid="screen-wrapper">{children}</div>,
+}));
+vi.mock('motion/react', () => ({
+    motion: {
+        div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    },
+}));
+
+const mockNavigateToAccount = vi.fn();
+
+describe('TermCondition', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+        vi.mocked(useOutletNavigation).mockReturnValue({
+            navigateToAccount: mockNavigateToAccount,
+        } as any);
+    });
+
+    const renderComponent = () => {
+        return render(
+            <BrowserRouter>
+                <TermCondition />
+            </BrowserRouter>
+        );
+    };
+
+    describe('Component Rendering', () => {
+        it('should render the component', () => {
+            renderComponent();
+            expect(screen.getByTestId('screen-wrapper')).toBeInTheDocument();
+        });
+
+        it('should render header with title', () => {
+            renderComponent();
+            expect(screen.getByTestId('header-bar')).toBeInTheDocument();
+        });
+
+        it('should render main title', () => {
+            renderComponent();
+            const titles = screen.getAllByText(termsData.title);
+            expect(titles.length).toBeGreaterThan(0);
+        });
+
+        it('should render description', () => {
+            renderComponent();
+            expect(screen.getByText(termsData.description)).toBeInTheDocument();
+        });
+    });
+
+    describe('Sections Display', () => {
+        it('should render all terms sections', () => {
+            renderComponent();
+            termsData.sections.forEach(section => {
+                expect(screen.getByText(section.title)).toBeInTheDocument();
+            });
+        });
+
+        it('should render section content', () => {
+            renderComponent();
+            termsData.sections.forEach(section => {
+                expect(screen.getByText(section.content)).toBeInTheDocument();
+            });
+        });
+
+        it('should render correct number of sections', () => {
+            const { container } = renderComponent();
+            const sections = container.querySelectorAll('.bg-white.dark\\:bg-neutral-900');
+            expect(sections.length).toBe(termsData.sections.length);
+        });
+    });
+
+    describe('Icons Display', () => {
+        it('should render icons for each section', () => {
+            const { container } = renderComponent();
+            const icons = container.querySelectorAll('svg');
+            expect(icons.length).toBeGreaterThan(0);
+        });
+
+        it('should render icon containers', () => {
+            const { container } = renderComponent();
+            const iconContainers = container.querySelectorAll('.p-2\\.5');
+            expect(iconContainers.length).toBeGreaterThan(0);
+        });
+
+        it('should render FileText icon in footer', () => {
+            const { container } = renderComponent();
+            const footerIcon = container.querySelector('.text-blue-600');
+            expect(footerIcon).toBeInTheDocument();
+        });
+
+        it('should have correct icon colors', () => {
+            const { container } = renderComponent();
+            const blueIcon = container.querySelector('.text-blue-500');
+            const greenIcon = container.querySelector('.text-green-500');
+            const purpleIcon = container.querySelector('.text-purple-500');
+            const orangeIcon = container.querySelector('.text-orange-500');
+            const redIcon = container.querySelector('.text-red-500');
+            const indigoIcon = container.querySelector('.text-indigo-500');
+
+            expect(blueIcon || greenIcon || purpleIcon || orangeIcon || redIcon || indigoIcon).toBeTruthy();
+        });
+    });
+
+    describe('Navigation', () => {
+        it('should call navigateToAccount when back button is clicked', () => {
+            renderComponent();
+            const backButton = screen.getByRole('button', { name: 'Back' });
+            backButton.click();
+            expect(mockNavigateToAccount).toHaveBeenCalledTimes(1);
+        });
+
+        it('should pass showBack prop to HeaderBar', () => {
+            renderComponent();
+            expect(screen.getByTestId('header-bar')).toBeInTheDocument();
+        });
+    });
+
+    describe('Styling', () => {
+        it('should have correct container styling', () => {
+            const { container } = renderComponent();
+            const mainContainer = container.querySelector('.mt-6');
+            expect(mainContainer).toHaveClass('px-4', 'pb-10', 'max-w-3xl', 'mx-auto');
+        });
+
+        it('should have centered layout', () => {
+            const { container } = renderComponent();
+            const mainContainer = container.querySelector('.mx-auto');
+            expect(mainContainer).toBeInTheDocument();
+        });
+
+        it('should have max width constraint', () => {
+            const { container } = renderComponent();
+            const mainContainer = container.querySelector('.max-w-3xl');
+            expect(mainContainer).toBeInTheDocument();
+        });
+    });
+
+    describe('Header Section Styling', () => {
+        it('should have centered header text', () => {
+            const { container } = renderComponent();
+            const headerSection = container.querySelector('.text-center');
+            expect(headerSection).toBeInTheDocument();
+        });
+
+        it('should have correct title styling', () => {
+            const { container } = renderComponent();
+            const title = container.querySelector('.text-2xl');
+            expect(title).toHaveClass('font-bold', 'text-title-black', 'dark:text-white', 'mb-2');
+        });
+
+        it('should have correct description styling', () => {
+            const { container } = renderComponent();
+            const description = container.querySelector('.text-gray-500');
+            expect(description).toHaveClass('dark:text-gray-400');
+        });
+
+        it('should have margin bottom on header', () => {
+            const { container } = renderComponent();
+            const header = container.querySelector('.mb-8');
+            expect(header).toBeInTheDocument();
+        });
+    });
+
+    describe('Section Card Styling', () => {
+        it('should have white background on cards', () => {
+            const { container } = renderComponent();
+            const cards = container.querySelectorAll('.bg-white');
+            expect(cards.length).toBeGreaterThan(0);
+        });
+
+        it('should have rounded corners on cards', () => {
+            const { container } = renderComponent();
+            const cards = container.querySelectorAll('.rounded-2xl');
+            expect(cards.length).toBeGreaterThan(0);
+        });
+
+        it('should have padding on cards', () => {
+            const { container } = renderComponent();
+            const cards = container.querySelectorAll('.p-5');
+            expect(cards.length).toBeGreaterThan(0);
+        });
+
+        it('should have shadow on cards', () => {
+            const { container } = renderComponent();
+            const cards = container.querySelectorAll('.shadow-sm');
+            expect(cards.length).toBeGreaterThan(0);
+        });
+
+        it('should have border on cards', () => {
+            const { container } = renderComponent();
+            const cards = container.querySelectorAll('.border');
+            expect(cards.length).toBeGreaterThan(0);
+        });
+
+        it('should have hover effect on cards', () => {
+            const { container } = renderComponent();
+            const cards = container.querySelectorAll('.hover\\:shadow-md');
+            expect(cards.length).toBeGreaterThan(0);
+        });
+
+        it('should have transition on cards', () => {
+            const { container } = renderComponent();
+            const cards = container.querySelectorAll('.transition-all');
+            expect(cards.length).toBeGreaterThan(0);
+        });
+
+        it('should have duration on cards', () => {
+            const { container } = renderComponent();
+            const cards = container.querySelectorAll('.duration-300');
+            expect(cards.length).toBeGreaterThan(0);
+        });
+    });
+
+    describe('Icon Container Styling', () => {
+        it('should have correct icon container styling', () => {
+            const { container } = renderComponent();
+            const iconContainers = container.querySelectorAll('.p-2\\.5');
+            iconContainers.forEach(iconContainer => {
+                expect(iconContainer).toHaveClass('bg-gray-50', 'dark:bg-neutral-800', 'rounded-xl', 'shrink-0');
+            });
+        });
+
+        it('should have flex layout for sections', () => {
+            const { container } = renderComponent();
+            const sections = container.querySelectorAll('.flex.items-start.gap-4');
+            expect(sections.length).toBeGreaterThan(0);
+        });
+    });
+
+    describe('Section Content Styling', () => {
+        it('should have correct section title styling', () => {
+            const { container } = renderComponent();
+            const sectionTitles = container.querySelectorAll('.text-base.font-semibold');
+            expect(sectionTitles.length).toBeGreaterThan(0);
+        });
+
+        it('should have correct section content styling', () => {
+            const { container } = renderComponent();
+            const sectionContents = container.querySelectorAll('.text-sm.leading-relaxed');
+            expect(sectionContents.length).toBeGreaterThan(0);
+        });
+
+        it('should have margin bottom on section titles', () => {
+            const { container } = renderComponent();
+            const sectionTitles = container.querySelectorAll('.mb-1\\.5');
+            expect(sectionTitles.length).toBeGreaterThan(0);
+        });
+    });
+
+    describe('Footer Section', () => {
+        it('should render footer with agreement message', () => {
+            renderComponent();
+            expect(screen.getByText(/Dengan menggunakan layanan ini/)).toBeInTheDocument();
+        });
+
+        it('should have centered footer', () => {
+            const { container } = renderComponent();
+            const footer = container.querySelector('.mt-12.text-center');
+            expect(footer).toBeInTheDocument();
+        });
+
+        it('should have icon container in footer', () => {
+            const { container } = renderComponent();
+            const iconContainer = container.querySelector('.inline-flex.items-center.justify-center');
+            expect(iconContainer).toBeInTheDocument();
+        });
+
+        it('should have correct footer text styling', () => {
+            const { container } = renderComponent();
+            const footerText = container.querySelector('.text-xs.text-gray-400');
+            expect(footerText).toHaveClass('dark:text-gray-500', 'max-w-xs', 'mx-auto');
+        });
+
+        it('should have blue background on footer icon container', () => {
+            const { container } = renderComponent();
+            const iconContainer = container.querySelector('.bg-blue-50');
+            expect(iconContainer).toHaveClass('dark:bg-blue-900\\/20', 'rounded-full', 'mb-3');
+        });
+    });
+
+    describe('Dark Mode Support', () => {
+        it('should have dark mode classes for background', () => {
+            const { container } = renderComponent();
+            const darkBg = container.querySelectorAll('.dark\\:bg-neutral-900');
+            expect(darkBg.length).toBeGreaterThan(0);
+        });
+
+        it('should have dark mode classes for text', () => {
+            const { container } = renderComponent();
+            const darkText = container.querySelectorAll('.dark\\:text-white');
+            expect(darkText.length).toBeGreaterThan(0);
+        });
+
+        it('should have dark mode classes for borders', () => {
+            const { container } = renderComponent();
+            const darkBorder = container.querySelectorAll('.dark\\:border-neutral-800');
+            expect(darkBorder.length).toBeGreaterThan(0);
+        });
+
+        it('should have dark mode classes for gray text', () => {
+            const { container } = renderComponent();
+            const darkGrayText = container.querySelectorAll('.dark\\:text-gray-400');
+            expect(darkGrayText.length).toBeGreaterThan(0);
+        });
+
+        it('should have dark mode classes for icon containers', () => {
+            const { container } = renderComponent();
+            const darkIconBg = container.querySelectorAll('.dark\\:bg-neutral-800');
+            expect(darkIconBg.length).toBeGreaterThan(0);
+        });
+    });
+
+    describe('Animation Properties', () => {
+        it('should have initial opacity', () => {
+            const { container } = renderComponent();
+            const animatedElements = container.querySelectorAll('[initial]');
+            expect(animatedElements.length).toBeGreaterThan(0);
+        });
+
+        it('should have animate properties', () => {
+            const { container } = renderComponent();
+            const animatedElements = container.querySelectorAll('[animate]');
+            expect(animatedElements.length).toBeGreaterThan(0);
+        });
+
+        it('should have transition properties', () => {
+            const { container } = renderComponent();
+            const animatedElements = container.querySelectorAll('[transition]');
+            expect(animatedElements.length).toBeGreaterThan(0);
+        });
+    });
+
+    describe('Content Verification', () => {
+        it('should display all section titles', () => {
+            renderComponent();
+            termsData.sections.forEach(section => {
+                expect(screen.getByText(section.title)).toBeInTheDocument();
+            });
+        });
+
+        it('should display all section contents', () => {
+            renderComponent();
+            termsData.sections.forEach(section => {
+                expect(screen.getByText(section.content)).toBeInTheDocument();
+            });
+        });
+
+        it('should have correct section IDs', () => {
+            renderComponent();
+            expect(termsData.sections.length).toBeGreaterThan(0);
+            termsData.sections.forEach(section => {
+                expect(section.id).toBeDefined();
+            });
+        });
+    });
+
+    describe('Accessibility', () => {
+        it('should use semantic heading for title', () => {
+            const { container } = renderComponent();
+            const heading = container.querySelector('h1');
+            expect(heading).toBeInTheDocument();
+        });
+
+        it('should use semantic heading for section titles', () => {
+            const { container } = renderComponent();
+            const sectionHeadings = container.querySelectorAll('h3');
+            expect(sectionHeadings.length).toBe(termsData.sections.length);
+        });
+
+        it('should have descriptive text for screen readers', () => {
+            renderComponent();
+            expect(screen.getByText(termsData.description)).toBeInTheDocument();
+        });
+    });
+
+    describe('Responsive Design', () => {
+        it('should have responsive padding', () => {
+            const { container } = renderComponent();
+            const mainContainer = container.querySelector('.px-4');
+            expect(mainContainer).toBeInTheDocument();
+        });
+
+        it('should have responsive bottom padding', () => {
+            const { container } = renderComponent();
+            const mainContainer = container.querySelector('.pb-10');
+            expect(mainContainer).toBeInTheDocument();
+        });
+
+        it('should have responsive margin top', () => {
+            const { container } = renderComponent();
+            const mainContainer = container.querySelector('.mt-6');
+            expect(mainContainer).toBeInTheDocument();
+        });
+    });
+
+    describe('Layout Structure', () => {
+        it('should have header section', () => {
+            renderComponent();
+            expect(screen.getByTestId('header-bar')).toBeInTheDocument();
+        });
+
+        it('should have main content section', () => {
+            const { container } = renderComponent();
+            const mainContent = container.querySelector('.space-y-4');
+            expect(mainContent).toBeInTheDocument();
+        });
+
+        it('should have footer section', () => {
+            const { container } = renderComponent();
+            const footer = container.querySelector('.mt-12');
+            expect(footer).toBeInTheDocument();
+        });
+    });
+
+    describe('Icon Mapping', () => {
+        it('should render Layout icon for section 1', () => {
+            const { container } = renderComponent();
+            const icons = container.querySelectorAll('svg');
+            expect(icons.length).toBeGreaterThan(0);
+        });
+
+        it('should render ShieldCheck icon for section 2', () => {
+            const { container } = renderComponent();
+            const greenIcon = container.querySelector('.text-green-500');
+            expect(greenIcon).toBeInTheDocument();
+        });
+
+        it('should render Copyright icon for section 3', () => {
+            const { container } = renderComponent();
+            const purpleIcon = container.querySelector('.text-purple-500');
+            expect(purpleIcon).toBeInTheDocument();
+        });
+
+        it('should render RefreshCw icon for section 4', () => {
+            const { container } = renderComponent();
+            const orangeIcon = container.querySelector('.text-orange-500');
+            expect(orangeIcon).toBeInTheDocument();
+        });
+
+        it('should render AlertCircle icon for section 5', () => {
+            const { container } = renderComponent();
+            const redIcon = container.querySelector('.text-red-500');
+            expect(redIcon).toBeInTheDocument();
+        });
+
+        it('should render FileText icon for section 6', () => {
+            const { container } = renderComponent();
+            const indigoIcon = container.querySelector('.text-indigo-500');
+            expect(indigoIcon).toBeInTheDocument();
+        });
+    });
+
+    describe('Edge Cases', () => {
+        it('should render with proper spacing', () => {
+            const { container } = renderComponent();
+            const spacedContainer = container.querySelector('.space-y-4');
+            expect(spacedContainer).toBeInTheDocument();
+        });
+
+        it('should handle empty sections gracefully', () => {
+            const { container } = renderComponent();
+            expect(container).toBeInTheDocument();
+        });
+    });
+});

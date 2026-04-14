@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+    --font-rubik: 'Rubik', sans-serif;
+    --color-primary-orange: #F35F0F;
+    --color-body-grey: #808080;
+    --color-title-black: #121212;
+    --color-dark-green: #002204;
+    --color-light-green: #00820C;
+    --color-light-red: #FFDFDF;
+    --color-light-yellow: #E7E909;
+    --color-dark-red: #FF2020;
+    --color-dark-yellow: #AC9208;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';

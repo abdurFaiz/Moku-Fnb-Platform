@@ -1,0 +1,105 @@
+.card {
+    margin-bottom: 1rem;
+    transition: all 0.3s;
+}
+
+.card-header {
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    background-color: white;
+    border-bottom: 1px solid var(--bs-gray-200);
+}
+
+.card-footer {
+    border-top: 1px solid var(--bs-gray-200);
+}
+
+.card-status-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.15rem;
+}
+
+.callout {
+    border-left: 5px solid #e9ecef;
+}
+
+.callout.callout-primary {
+    border-left-color: var(--bs-primary);
+}
+
+.callout.callout-success {
+    border-left-color: var(--bs-success);
+}
+
+.callout.callout-info {
+    border-left-color: var(--bs-info);
+}
+
+.callout.callout-warning {
+    border-left-color: var(--bs-warning);
+}
+
+.callout.callout-danger {
+    border-left-color: var(--bs-danger);
+}
+
+.card-hover:hover {
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1) !important;
+    transition: transform 0.3s;
+    transform: translateY(-2px);
+    border-color: #fff;
+}
+
+.card-hover-primary-light:hover {
+    border: 1px solid var(--bs-primary) !important;
+    color: var(--bs-primary);
+    background-color: var(--bs-gray-100);
+}
+
+.card-reply {
+    position: relative;
+    margin-bottom: 30px !important;
+}
+
+.card-reply::after {
+    content: "";
+    position: absolute;
+    left: 4%;
+    bottom: -31px;
+    width: 2px;
+    height: 30px;
+    background-color: var(--bs-gray-400);
+    transform: scaleY(0);
+    transform-origin: top;
+    animation: growWire 0.5s ease-in-out forwards;
+}
+
+@media (max-width: 575px) {
+    .card-reply::after {
+        left: 12% !important;
+    }
+}
+
+@media (max-width: 968px) {
+    .card-reply::after {
+        left: 6%;
+    }
+}
+
+.card-reply:last-child::after {
+    display: none;
+}
+
+@keyframes growWire {
+    from {
+        transform: scaleY(0);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+}

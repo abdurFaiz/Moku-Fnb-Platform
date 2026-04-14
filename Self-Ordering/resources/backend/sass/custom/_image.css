@@ -1,0 +1,13 @@
+.img-classroom {
+    aspect-ratio: 8/2;
+    object-fit: cover;
+}
+
+.header-profile-user {
+    background-color: var(--bs-white) !important;
+    padding: 2px !important;
+}
+
+.object-cover {
+    object-fit: cover;
+}

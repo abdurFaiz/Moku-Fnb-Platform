@@ -1,0 +1,24 @@
+.btn.hover-light:hover {
+    background-color: var(--bs-light) !important;
+}
+
+.btn.btn-menu {
+    padding-top: 0.7rem !important;
+    padding-bottom: 0.7rem !important;
+    background-color: #fff;
+    border: 1.3px solid var(--bs-border-color) !important;
+}
+
+.btn.btn-menu:hover {
+    background-color: var(--bs-white) !important;
+    border: 1.3px solid var(--bs-primary) !important;
+}
+
+.btn.btn-menu:focus {
+    background-color: var(--bs-white) !important;
+    border: 1.3px solid var(--bs-primary) !important;
+}
+
+.btn.btn-menu-active {
+    border: 1.3px solid var(--bs-primary) !important;
+}

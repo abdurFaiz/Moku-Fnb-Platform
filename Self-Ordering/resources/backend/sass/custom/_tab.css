@@ -1,0 +1,11 @@
+.nav-line-bottom .nav-item .nav-link {
+    border-bottom: 2px solid transparent;
+}
+
+.nav-line-bottom .nav-item .nav-link.active {
+    border-bottom: 2px solid #624bff;
+}
+
+.nav-line-bottom .nav-item .nav-link:hover {
+    border-bottom: 2px solid #624bff;
+}

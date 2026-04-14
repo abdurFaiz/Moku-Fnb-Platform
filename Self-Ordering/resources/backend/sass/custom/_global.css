@@ -1,0 +1,133 @@
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.bg-pattern {
+    background-image: url("./../../img/bg-pattern.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.whitespace-nowrap {
+    white-space: nowrap;
+}
+
+.dropify-wrapper .dropify-message .file-icon p {
+    font-size: 1rem !important;
+}
+
+/* wrapper for show embed video */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 45%;
+    padding-top: 25px;
+
+    iframe {
+        border-radius: 8px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.hover-primary-subtle {
+    transition: background-color 0.3s;
+}
+
+.hover-primary-subtle:hover {
+    background-color: var(--bs-primary-bg-subtle);
+}
+
+.hover-info-subtle {
+    transition: background-color 0.3s;
+}
+
+.hover-info-subtle:hover {
+    background-color: var(--bs-info-bg-subtle);
+}
+
+.hover-success-subtle {
+    transition: background-color 0.3s;
+}
+
+.hover-success-subtle:hover {
+    background-color: var(--bs-success-bg-subtle);
+}
+
+.hover-danger-subtle {
+    transition: background-color 0.3s;
+}
+
+.hover-danger-subtle:hover {
+    background-color: var(--bs-danger-bg-subtle);
+}
+
+.hover-dark-subtle {
+    transition: background-color 0.3s;
+}
+
+.hover-dark-subtle:hover {
+    background-color: var(--bs-dark-bg-subtle);
+}
+
+.page-content {
+    /* padding: calc(65px + 1.5rem) calc(1.5rem * 0.75) 60px calc(1.5rem * 0.75) !important; */
+    padding: 70px 0 0 0 !important;
+}
+
+.copy-content,
+.copy-input {
+    transition: background-color 0.1s ease;
+    cursor: pointer;
+}
+
+.copy-content:hover {
+    background-color: #f8f9fa;
+}
+
+.copy-content.copied {
+    background-color: transparent;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+.separator:before,
+.separator:after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #dadada;
+}
+
+.separator:not(:empty):before {
+    margin-right: 0.25em;
+}
+
+.font-poppins {
+    font-family: "Poppins", sans-serif;
+}
+
+.font-open-sans {
+    font-family: "Open Sans", sans-serif;
+}
+
+/* Chevron rotation animation: right -> bottom */
+.chevron-rotate {
+    transition: transform 0.3s ease;
+    transform-origin: center;
+    cursor: pointer;
+}
+
+.chevron-rotate.rotated {
+    transform: rotate(90deg);
+}
